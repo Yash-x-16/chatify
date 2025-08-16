@@ -4,7 +4,8 @@ import bcrypt from "bcrypt"
 import { signupSchema } from "../validations/validate.js"
 
 export const signup = async(req:Request,res:Response)=>{
-    const result  = signupSchema.safeParse(req.body) ; 
+  
+    const result  = signupSchema.safeParse(req.body) ;  
     if(result.error){
         res.status(400).json({
             message:"incorrect validations"
@@ -22,7 +23,7 @@ export const signup = async(req:Request,res:Response)=>{
             }
         })
 
-        if(alreadyexist===null){
+        if(alreadyexist){
             res.status(409).json({
                 message:"user already exists"
             })
@@ -37,11 +38,11 @@ export const signup = async(req:Request,res:Response)=>{
                 email , 
                 Image : Image as string ,
                 password:hashedPassword,
-                createdAt:Date.now().toString()  
+                createdAt : new Date() 
             }
     })
 
-    res.status(401).json({
+    res.status(201).json({
      message :"user created !" , 
      user : {...response,
         password:null 
