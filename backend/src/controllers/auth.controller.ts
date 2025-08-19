@@ -1,7 +1,12 @@
 import type { Request, Response } from "express" 
 import {client} from "../db/db.js"
 import bcrypt from "bcrypt"
-import { signupSchema } from "../validations/validate.js"
+import jwt, { type JwtPayload } from "jsonwebtoken"
+import dotenv from 'dotenv'
+import { signupSchema ,signinSchema} from "../validations/validate.js"
+
+
+dotenv.config()
 
 export const signup = async(req:Request,res:Response)=>{
   
@@ -56,4 +61,5 @@ export const signup = async(req:Request,res:Response)=>{
     }
 }
 
-export const signin = async ()=>{}
+
+export const signin = ()=>{}
