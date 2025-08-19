@@ -1,14 +1,15 @@
 import express from 'express'
-import { signin,
+import { checkAuth, signin,
         signup 
     } from '../controllers/auth.controller.js'
+import { Middleware } from '../middleware/middleware.js'
 
 const router = express.Router()
 
 
-router.post("/Signup",signup)
+router.post("/signup",signup)
 router.post("/signin",signin) 
-
+router.get('/check',Middleware,checkAuth)
 
 
 export default router
