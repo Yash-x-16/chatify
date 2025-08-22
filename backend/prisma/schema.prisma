@@ -22,6 +22,8 @@ model User{
   Image   String? 
   createdAt  DateTime?  
   message   Messages[] 
+  roomId    Int 
+  room      rooms[]
 } 
 
 model Messages{
@@ -31,4 +33,15 @@ model Messages{
   message String 
   UserID Int 
   User   User   @relation(fields: [UserID],references: [Id])
+  roomId   Int
+  room   rooms @relation(fields: [roomId],references: [id])
+}
+
+model rooms{
+  id Int @id @default(autoincrement()) 
+  roomId Int @unique @default(autoincrement())  
+  createdAt DateTime? 
+  adminId   Int
+  admin  User @relation(fields: [adminId],references: [Id]) 
+  chats    Messages[]
 }
