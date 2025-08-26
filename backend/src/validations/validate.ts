@@ -11,4 +11,5 @@ export const signupSchema = z.object({
 export const signinSchema = z.object({
     username: z.string().min(6,{message:"username must be minimum of 6 characters"}),
     password:z.string().min(6,{message:"password must be of minimum 6 char"}),
-})
+}) 
+

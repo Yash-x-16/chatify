@@ -15,15 +15,15 @@ datasource db {
 }
 
 model User{
-  Id Int @id @default(autoincrement()) 
-  username String @unique 
-  email String @unique 
-  password String 
-  Image   String? 
-  createdAt  DateTime?  
-  message   Messages[] 
-  roomId    Int 
-  room      rooms[]
+  Id            Int @id @default(autoincrement()) 
+  username      String @unique 
+  email         String @unique 
+  password      String 
+  Image         String? 
+  createdAt     DateTime?  
+  message       Messages[] 
+  adminRoom     rooms[] @relation("admin")
+  userRoom      rooms[]@relation("normalUser")        
 } 
 
 model Messages{
@@ -31,8 +31,7 @@ model Messages{
   senderId Int 
   RecieverID Int 
   message String 
-  UserID Int 
-  User   User   @relation(fields: [UserID],references: [Id])
+  User   User   @relation(fields: [senderId],references: [Id])
   roomId   Int
   room   rooms @relation(fields: [roomId],references: [id])
 }
@@ -42,6 +41,8 @@ model rooms{
   roomId Int @unique @default(autoincrement())  
   createdAt DateTime? 
   adminId   Int
-  admin  User @relation(fields: [adminId],references: [Id]) 
-  chats    Messages[]
+  admin  User @relation(name: "admin",fields: [adminId],references: [Id]) 
+  userId  Int 
+  user   User @relation(name: "normalUser",fields: [userId],references: [Id])
+  chats    Messages[] 
 }
