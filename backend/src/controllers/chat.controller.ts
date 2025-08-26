@@ -2,13 +2,13 @@ import type { Request, Response } from "express";
 
 import { client } from "../db/db.js";
 
-export const sendMessage = async(req:Request,res:Response)=>{ 
+export const createRoom = async(req:Request,res:Response)=>{ 
   
     try{
         const adminId = req.userId ;  
-        const userId =req.body  
-
-        const alreadyExistRoom =await client.rooms.findMany({
+        const {userId} = req.body  
+        console.log(userId)
+        const alreadyExistRoom =await client.rooms.findFirst({
             where:{
                 OR:[
                     {
@@ -25,10 +25,12 @@ export const sendMessage = async(req:Request,res:Response)=>{
             }
 
         }) 
-
         if(alreadyExistRoom){
             res.status(200).json({
-                messages:alreadyExistRoom.map((x)=>x.chats)
+                messages:{
+                    chats:alreadyExistRoom.chats,
+                    roomId:alreadyExistRoom.roomId
+                }
             })
         }else{
             const createdRoom = await client.rooms.create({
@@ -50,6 +52,21 @@ export const sendMessage = async(req:Request,res:Response)=>{
     }
 }
 
-export const getMessage = (req:Request,res:Response)=>{
+export const postMessages = async(req:Request,res:Response)=>{
+    try{
+        const{senderId, RecieverId,message,roomId}=req.body
+         await client.messages.create({
+            data:{
+                senderId , 
+                RecieverId , 
+                message:message ,
+                roomId:roomId
+            }
+        }) 
 
+    }catch(e){
+        res.status(400).json({
+            message:`error is ${e}`
+        })
+    }
 }
