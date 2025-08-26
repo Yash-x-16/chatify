@@ -51,22 +51,3 @@ export const createRoom = async(req:Request,res:Response)=>{
         })
     }
 }
-
-export const postMessages = async(req:Request,res:Response)=>{
-    try{
-        const{senderId, RecieverId,message,roomId}=req.body
-         await client.messages.create({
-            data:{
-                senderId , 
-                RecieverId , 
-                message:message ,
-                roomId:roomId
-            }
-        }) 
-
-    }catch(e){
-        res.status(400).json({
-            message:`error is ${e}`
-        })
-    }
-}

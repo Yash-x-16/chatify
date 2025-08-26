@@ -47,8 +47,9 @@ wss.on("connection",(socket,request)=>{
 
         const HTTP_URL = process.env.HTTP_BACKEND 
         const receiverId = parsedMessage.receiverId 
-        
-        sendChat(HTTP_URL as string,Number(userId),Number(receiverId)) 
+        const userMessage:string = parsedMessage.message 
+        const roomid = parsedMessage.roomid
+        sendChat(HTTP_URL as string,Number(userId),Number(receiverId),userMessage,roomid) 
 
         const currentUser = allSockets.find((x)=>x.socket==socket)?.roomid; 
         for(let i =0 ; i<allSockets.length;i++){
