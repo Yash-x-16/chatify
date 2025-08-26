@@ -1,5 +1,10 @@
 import   { WebSocketServer,WebSocket } from "ws"; 
 import { checkAuth } from "./auth/checkAuth.js";
+import dotenv from "dotenv" 
+import axios from "axios";
+import { sendChat } from "./utils/utils.js";
+dotenv.config() 
+
 
 interface allSocket {
     socket :WebSocket  , 
@@ -31,17 +36,24 @@ wss.on("connection",(socket,request)=>{
       
       if(parsedMessage.type==="join"){ 
        
+  
         allSockets.push({
             socket , 
-            roomid:parsedMessage.payload.roomid
+            roomid:parsedMessage.roomid
         })
       }
 
       if(parsedMessage.type==="chat"){
+
+        const HTTP_URL = process.env.HTTP_BACKEND 
+        const receiverId = parsedMessage.receiverId 
+        
+        sendChat(HTTP_URL as string,Number(userId),Number(receiverId)) 
+
         const currentUser = allSockets.find((x)=>x.socket==socket)?.roomid; 
         for(let i =0 ; i<allSockets.length;i++){
             if(allSockets[i]?.roomid==currentUser){
-                allSockets[i]?.socket.send(parsedMessage.payload.message); 
+                allSockets[i]?.socket.send(parsedMessage.message); 
             }
         }
       }
