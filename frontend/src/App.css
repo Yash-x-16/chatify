@@ -1,1 +1,9 @@
 @import "tailwindcss";
+@layer utilities{
+    @keyframes borderGlow {
+        100%{
+        transform: rotate(-360deg);
+        }
+    }
+}
+
