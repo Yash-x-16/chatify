@@ -24,19 +24,19 @@ const variantStyle = {
 const sizeStyle = {
     "sm": " rounded-xl active:translate-y-1  shadow-neutral-600 hover:bg-shadow-neutral-600  active:bg-blue-700 flex-item-center w-auto px-6 py-2  hover:scale-110  transition delay-50 duration-250 ease-in-out hover:translate-z-1 cursor-pointer h-auto shadow-md" , 
     "md" : "py-2 px-5 rounded-md flex-item-center", 
-    "lg" : "py-4 px-7 h-8 rounded-md flex-item-center", 
+    "lg" : "px-8 py-2 w-full cursor-pointer   bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-400 hover:via-teal-400 hover:to-cyan-400 hover:scale-105 active:scale-95 active:shadow-inner transition-all duration-500 ease-in-out shadow-md rounded-md flex items-center justify-center", 
 } 
 
 const DefaulStyles = "rounded-lg flex font-light"
 
 export  function Button(prop:buttonVariant){
-    return <button onClick={prop.onClick} className={`${variantStyle[prop.variant]} ${sizeStyle[prop.size]} ${DefaulStyles}`}>
+    return <button onClick={prop.onClick} className={`${variantStyle[prop.variant]} ${sizeStyle[prop.size]} ${DefaulStyles}${prop.fullwidth?"w-max":null} `}>
         
         {prop.iconOnStart?
         <div>
             {prop.iconOnStart}
         </div>:null}
-       <span className="m-auto font-medium  transition-colors">
+       <span className={`m-auto  transition-colors ${prop.size==="lg"?"font-bold":"font-medium "}`}>
         {prop.text}
        </span>
          
