@@ -2,10 +2,12 @@ import { InputBox } from '../ui/inputBox';
 import { AiOutlineMail } from 'react-icons/ai';
 import { TbLockPassword } from 'react-icons/tb'; 
 import { Button } from '../ui/Button';
-
+import { useState } from 'react';
+import { IoEyeOutline } from "react-icons/io5";
+import { FaRegEyeSlash } from "react-icons/fa";
 
 export function LoginComponent(){
-
+ const[lock,setlock] = useState(true) 
     return <div> 
          <div className="h-max  flex flex-col mt-4 transition-all duration-700 ease-in-out ">
                     <div >
@@ -13,12 +15,16 @@ export function LoginComponent(){
                         <AiOutlineMail size={'22px'}/>
                         </InputBox>
                     </div>
-                    <div className="mt-5 ">
-                        <InputBox text="Enter your Password" label="Password"  fullWidth={true} >
-                        <TbLockPassword size={'22px'}/>
-                        
-                        </InputBox>
-                    </div>
+                    <div className="mt-4">
+                                    <InputBox text="Enter Your Password"
+                                    type={lock?"password":"text"}
+                                    label="Password" 
+                                    fullWidth={true} 
+                                    iconOnEnd={lock?
+                                         <IoEyeOutline size={"22px"} onClick={()=>{setlock(!lock)}}/>:<FaRegEyeSlash size={"22px"} onClick={()=>{setlock(!lock)}}/>}>
+                                        <TbLockPassword size={"22px"}/>
+                                    </InputBox>
+                                </div>
                 </div> 
                 <div className="mt-4 cursor-pointer flex justify-end items-end">
                     <span className="text-cyan-300 text-sm hover:text-cyan-200 transition-colors duration-200 font-medium">

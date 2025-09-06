@@ -3,12 +3,12 @@ import { FaUser } from "react-icons/fa";
 import { TbLockPassword } from "react-icons/tb";
 import { IoEyeOutline } from "react-icons/io5";
 import { AiOutlineMail } from 'react-icons/ai';
+import { FaRegEyeSlash } from "react-icons/fa";
 import { Button } from "../ui/Button";
 import { useState } from "react";
 
 export function  SignupComponent(){
     const[lock,setlock] = useState(true) 
-    const [visible,setVisible] = useState(true)
 return <div>
           <div className="h-auto  flex flex-col mt-4 ">
             <div>
@@ -22,7 +22,12 @@ return <div>
                 </InputBox>
             </div>
             <div className="mt-4">
-                <InputBox text="Enter Your Password" label="Password" fullWidth={true} iconOnEnd={lock? <IoEyeOutline size={"22px"}/>:<TbLockPassword size={"22px"} />}>
+                <InputBox text="Enter Your Password"
+                type={lock?"password":"text"}
+                label="Password" 
+                fullWidth={true} 
+                iconOnEnd={lock?
+                     <IoEyeOutline size={"22px"} onClick={()=>{setlock(!lock)}}/>:<FaRegEyeSlash size={"22px"} onClick={()=>{setlock(!lock)}}/>}>
                     <TbLockPassword size={"22px"}/>
                 </InputBox>
             </div>
