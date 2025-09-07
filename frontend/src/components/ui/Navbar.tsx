@@ -15,13 +15,11 @@ export function HomeNavbar(){
                     </h1>
                     <p className="text-white/60 text-xs">Dashboard</p>
                 </div>  
-                <div className="h-full ">
-                    <hr className="  ml-20.5 h-full border-l-1  border-l-white/25 bg-white/25" />
-                </div>
+                
             </div>
             <div className="flex justify-between w-full items-center">
 
-            <div className="flex justify-center items-center ml-10 h-full">
+            <div className="flex justify-center items-center ml-20 h-full">
                  <div>
                     <div>
                         <h1 className="text-white font-medium text-4xl ">
