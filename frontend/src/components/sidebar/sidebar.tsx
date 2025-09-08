@@ -2,8 +2,9 @@ import { IoChatbubbleOutline } from "react-icons/io5";
 import { PiUsersLight } from "react-icons/pi";
 import { CiSettings } from "react-icons/ci";
 import { IoIosLogOut } from "react-icons/io";
-import { useState, type ReactNode } from "react";
-
+import {   type ReactNode } from "react";
+import { useContext } from "react"; 
+import { CardContext } from "../../contexts/dashboardContext";
 
 interface items{
     label:string , 
@@ -12,8 +13,9 @@ interface items{
 }
 
 export function Sidebar(){
-
-    const [selected,setSelected] = useState<String |null>(null)
+    const context = useContext(CardContext) 
+    if(!context){return}
+const {selected,setSelected} = context
     const items:items[] =
      [{
        id:"chats",label:"chats" , icons:<IoChatbubbleOutline size={"24px"}/>},
@@ -28,8 +30,8 @@ export function Sidebar(){
        }
     ]
 
-    return <div className="h-full w-60 border-r-white/25 border-t-white/40  flex border  ">
-        <div className="flex flex-col justify-between items-center  relative h-full w-full bg-white/20">
+    return <div className=" bg-white/20 w-60 border-r-white/25 border-t-white/40  flex border  ">
+        <div className="flex flex-col justify-between items-center  relative  w-full ">
             <div className="flex justify-start  flex-col items-center gap-6 mt-6 w-full h-1/2">
             {items.map((x)=>(<div
             key={x.id} 
