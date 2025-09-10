@@ -3,8 +3,8 @@ import { CiSearch } from "react-icons/ci";
 import { InputBox } from "./inputBox";
 import { IoIosNotificationsOutline } from "react-icons/io";
 export function HomeNavbar(){
-    return <div className="w-full  bg-white/20 h-24"> 
-    <div className="flex h-full">
+    return <div className="relative  bg-white/20 h-24 "> 
+    <div className="flex p-4">
             <div className="flex items-center justify-center ml-4  "> 
                 <div className="flex  rounded-lg px-4 py-1 text-yellow-300 animate-pulse">
                     <IoChatbubblesOutline size={"32px"}/>

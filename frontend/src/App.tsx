@@ -1,11 +1,12 @@
-import { InputBox } from "./components/ui/inputBox"
-import { SiAdblock } from "react-icons/si";
-import { AuthPage } from "./pages/AuthPage";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Homepage } from "./pages/homepage";
-function App() {
+function App() {  
+  return <BrowserRouter>
+  <Routes>
+    <Route element={<Homepage/>} path="/dashboard"/>
+  </Routes>
+  </BrowserRouter> 
   
-
-  return <Homepage/>
 }
 
 export default App
