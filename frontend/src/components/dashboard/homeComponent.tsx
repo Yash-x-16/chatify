@@ -5,6 +5,7 @@ import { CardContext } from "../../contexts/dashboardContext";
 import { SettingsCard } from "../cards/Settings";
 import { DefaultCard } from "./default";
 import { CallCard } from "../cards/CallsCard";
+import { FriendsSection } from "../cards/friendsSection";
 
 export function HomepageComponent(){
 
@@ -27,8 +28,10 @@ export function HomepageComponent(){
                   <CallCard />
                 ) : selected === "chats" ? (
                   ""
-                ) : (
-                  <DefaultCard />
+                ) : selected=== "friends"?
+                  (<FriendsSection/>)
+                :(
+                  <FriendsSection />
                 )}
             </main>
              </div>
