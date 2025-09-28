@@ -1,5 +1,3 @@
-
-
 type Variant = "primary"|"secondary"|"third"
 
 
@@ -13,7 +11,8 @@ interface buttonVariant{
     text:string , 
     fullwidth?: boolean  ,
     loading?:boolean , 
-    onClick : ()=>void
+    onClick : ()=>void , 
+    classname? : string
 }
 
 const variantStyle = {
@@ -30,7 +29,7 @@ const sizeStyle = {
 const DefaulStyles = "rounded-lg flex font-light"
 
 export  function Button(prop:buttonVariant){
-    return <button onClick={prop.onClick} className={`${variantStyle[prop.variant]} ${sizeStyle[prop.size]} ${DefaulStyles}${prop.fullwidth?"w-max":null} `}>
+    return <button onClick={prop.onClick} className={`${variantStyle[prop.variant]} ${sizeStyle[prop.size]} ${DefaulStyles}${prop.fullwidth?"w-max":null} ${prop.classname}`}>
         
         {prop.iconOnStart?
         <div>
