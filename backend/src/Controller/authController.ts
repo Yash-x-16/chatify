@@ -78,7 +78,7 @@ export const Signin = async(req:Request,res:Response)=>{
         if(isUserExist){
             const hashedPassword = await bcrypt.compare(password,isUserExist.password)
             if(hashedPassword){
-                const token = jwt.sign({userId:isUserExist.userID}as JwtPayload,process.env.JWT_Secret as string)  
+                const token = jwt.sign({userId:isUserExist.userID}as JwtPayload,process.env.JWT_Secret as string,{expiresIn:"7d"})  
                 res.json({
                     message:"logged in" , 
                     token
