@@ -54,12 +54,15 @@ model Message{
   senderId   Int 
   receiverId Int 
   text       String 
+  createdAt   DateTime  @default(now())
   image      String?
   sender     User           @relation(fields: [senderId],references: [userID],name: "sender") 
   reciever   User           @relation(fields: [receiverId],references: [userID],name: "receiver") 
 }
 
+
 enum Status{
+  NULL
   PENDING 
   ACCEPTED
   REJECTED

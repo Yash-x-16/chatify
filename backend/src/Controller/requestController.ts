@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import { client } from "../Db/db.js";
+import { client } from "../Db/db.js"; 
 
 export const sendRequest =  async(req:Request,res:Response)=>{
     try {
@@ -44,10 +44,10 @@ export const sendRequest =  async(req:Request,res:Response)=>{
                     senderId:Number(userId) , 
                     receiverId:Number(recieverId)
                 }
-            })
+            }) 
             res.json({
                 message:"request initiated",
-                response:{...response}
+                response:response
             })
         } 
     } catch (error) {
@@ -86,7 +86,7 @@ export const getAllRequest = async(req:Request,res:Response)=>{
         if(allRequests.length>0){
             res.json({
                 message:"here are your requests" , 
-                requests:{...allRequests}
+                requests:allRequests
             })
         }else{
             res.json({
@@ -99,3 +99,44 @@ export const getAllRequest = async(req:Request,res:Response)=>{
         })
     }
 }
+
+
+export const updateRequest = async (req:Request,res:Response)=>{  
+      try {     
+        const {requestId,data,recieverId} = req.body ; 
+
+        const userId = Number(req.userId) ; 
+        if(data != "ACCEPTED"|| data != "REJECTED" || data !="PENDING"){
+            res.json({
+                message:"invalid validation of status" , 
+            })
+            return 
+        }
+
+        const response = await client.request.update({
+            where:{
+                requestId:Number(requestId)
+            }  , 
+            data:{
+                status:data
+            }
+        })
+
+        if(response.status==="ACCEPTED"){
+            const contacts = await client.contact.create({
+                data:{
+                    userAId:userId , 
+                    userBId:Number(recieverId)
+                }
+            }) 
+            res.status(201).json({
+                message:"contact created" ,
+                contact:contacts
+            }) 
+        }
+    } catch (e) {
+        res.json({
+            message:"error in updating !"
+        })
+    }
+  }  
