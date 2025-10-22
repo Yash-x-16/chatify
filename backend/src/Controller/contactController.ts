@@ -15,14 +15,28 @@ export const getContacts = async(req:Request,res:Response)=>{
             }]
             } , 
             include:{
-                userA:true , 
-                userB:true
-            }
+                userA:{
+                    select:{
+                        username:true , 
+                        email:true ,
+                        userID:true , 
+                        profilePicture:true
+                    }
+                } , 
+                userB: {
+                    select:{
+                        username:true , 
+                        email:true ,
+                        userID:true ,
+                        profilePicture:true
+                    }
+                }
+            } , 
         })
         if(responses.length>0){
             res.json({
                 message:"here are your contacts" , 
-                responses:{...responses}
+                responses:responses
             })
         }else{
             res.json({
@@ -35,3 +49,31 @@ export const getContacts = async(req:Request,res:Response)=>{
         })
     }
 } 
+
+export const deleteContacts = async(req:Request,res:Response)=>{
+    try {
+        const {contactId}=req.body 
+        if(!contactId){
+            res.json({
+                message:"contact not found" ,
+            })
+            return
+        }
+        const response = await client.contact.delete({
+            where:{
+                contactId:Number(contactId)
+            }
+        })
+
+        res.json({
+            message:"contact deleted" , 
+            response
+        })
+        
+    } catch (error) {
+        res.json({
+            message:"error occured in deleting contacts" , 
+            error
+        }) 
+    }
+}

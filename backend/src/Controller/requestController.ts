@@ -4,15 +4,15 @@ import { client } from "../Db/db.js";
 export const sendRequest =  async(req:Request,res:Response)=>{
     try {
         const userId = Number(req.userId) 
-        const recieverId = Number(req.body.receiverId) 
-
+        const {recieverId }= req.body 
+        console.log("reciever id is : ",recieverId)
         if(!userId || !recieverId){
             res.json({
                 message:"fields are required"
             })
             return ; 
         }
-        if(userId === recieverId ){
+        if(userId === recieverId ){ 
             res.json({
                 message:"can't send request to yourself"
             })
@@ -100,43 +100,86 @@ export const getAllRequest = async(req:Request,res:Response)=>{
     }
 }
 
-
 export const updateRequest = async (req:Request,res:Response)=>{  
       try {     
         const {requestId,data,recieverId} = req.body ; 
-
         const userId = Number(req.userId) ; 
-        if(data != "ACCEPTED"|| data != "REJECTED" || data !="PENDING"){
+        console.log("STATUS IS : ",data) 
+
+        const allRequests = await client.request.findUnique({
+            where:{
+                requestId:Number(requestId)
+            }
+        })  
+
+        if(allRequests?.senderId === userId){
             res.json({
-                message:"invalid validation of status" , 
+                message:"cannot update your own request"
             })
             return 
-        }
+        } 
 
-        const response = await client.request.update({
+        if(data === "ACCEPTED"|| data === "REJECTED" || data ==="PENDING"){
+             const response = await client.request.update({
             where:{
                 requestId:Number(requestId)
             }  , 
             data:{
                 status:data
             }
-        })
+        }) 
 
         if(response.status==="ACCEPTED"){
-            const contacts = await client.contact.create({
-                data:{
-                    userAId:userId , 
-                    userBId:Number(recieverId)
-                }
-            }) 
-            res.status(201).json({
-                message:"contact created" ,
-                contact:contacts
-            }) 
+                const contacts = await client.contact.create({
+                    data:{
+                        userAId:userId , 
+                        userBId:Number(recieverId)
+                    }
+                }) 
+                res.status(201).json({
+                    message:"contact created" ,
+                    contact:contacts
+                }) 
         }
+        }
+        else{
+             res.json({
+                message:"invalid validation of status" , 
+            })
+            return 
+        }
+
+       
     } catch (e) {
         res.json({
             message:"error in updating !"
         })
     }
-  }  
+  } 
+
+export const deleteRequest =  async (req:Request,res:Response)=>{
+    try {
+        const {requestId} = req.body 
+        const userID = Number(req.userId) 
+        if(!requestId){
+            res.json({
+                message:"request id is required" , 
+            })
+
+            return 
+        }   
+        const response = await client.request.delete({
+            where:{
+                requestId:requestId
+            }
+        })
+        res.json({
+            message:"request deleted",
+            response
+        })
+    } catch (error) {
+        res.json({
+            message:"error occured in deleting request"
+        })
+    }
+} 
