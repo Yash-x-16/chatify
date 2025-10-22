@@ -15,6 +15,7 @@ export const signinValidations = z.object({
 
 
 export const MessageValidations = z.object({
-    text:z.string(),
-    image:z.string().optional()
+    text:z.string().min(1),
+    image:z.string() ,
+    recieverId:z.number()
 })
