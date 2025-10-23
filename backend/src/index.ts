@@ -8,8 +8,9 @@ import cors from "cors"
 const app = express() 
 dotenv.config()
 
+app.use(cors({origin:process.env.CLIENT_URL}))
 app.use(express.json()) 
-app.use(cors())
+
 
 app.use('/api/auth',authRoutes) ; 
 app.use('/api/message',messageRoutes)

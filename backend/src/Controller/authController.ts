@@ -110,12 +110,12 @@ export const getUser =  async(req:Request,res:Response)=>{
                 userID:Number(userId)
             }
         })
-        res.json({
+        res.status(200).json({
             message:"user..." , 
             user:{...user,password:null}
         })
     }catch(e){
-        res.json({
+        res.status(404).json({
             message:"error in getting user" , 
             error:{e}
         })
