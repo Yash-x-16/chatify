@@ -7,7 +7,8 @@ interface input {
     iconOnEnd?:ReactNode , 
     label?:string  , 
     isWidthFull?:boolean
-    variant?:"primary" | "secondary" 
+    variant?:"primary" | "secondary" ,
+    onchange?:(e: React.ChangeEvent<HTMLInputElement>)=>void
 }
 
 function InputBox(prop:input) {
@@ -20,6 +21,7 @@ function InputBox(prop:input) {
         <div className={`flex relative `}>
           {prop.iconOnstart?<div className='absolute left-3  top-1/2 -translate-y-1/2  text-gray-400 '>{prop.iconOnstart}</div>:null} 
           <input type={prop.type}
+          onChange={prop.onchange}
           placeholder={prop.plcaeholder}
            className={`bg-white px-6 text-slate-400
              font-medium py-3 pl-12 pr-4  focus 
