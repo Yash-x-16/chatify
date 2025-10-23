@@ -6,7 +6,7 @@ export const Middleware = async (req:Request,res:Response,next:NextFunction)=>{
     try{
         const token = req.headers["token"] ;
         if(!token){
-            res.status(404).json({
+            res.status(401).json({
                 message:"token is required!"
             })
             return
@@ -21,7 +21,7 @@ export const Middleware = async (req:Request,res:Response,next:NextFunction)=>{
             })
         }
     }catch(e){
-        res.status(404).json({
+        res.status(501).json({
             message:"error in middleware" , 
             error:{e}
         })
