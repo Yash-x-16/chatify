@@ -1,10 +1,26 @@
 import { useState } from 'react';
-import { Mail, MessageCircle,Lock, User, Eye, EyeOff } from 'lucide-react';
+import { Mail, MessageCircle,Lock,  Eye, EyeOff } from 'lucide-react';
 import InputBox from '../components/ui/InputBox';
 import Button from '../components/ui/Button';
-
+import toast from 'react-hot-toast';
+import { authStore } from '../store/authStore';
+import {  useNavigate } from 'react-router-dom';
 function SigninPage() { 
+  const {isSigninUp,login}=authStore()
   const [visible,setVisible]= useState(false)
+  const [data,setData]= useState({
+    email:"" , 
+    password:""
+  })
+  const navigate = useNavigate()
+  function validate (){
+    if(data.email===""||data.password===""){
+      toast.error("empty field not allowed")
+      return false
+    }else{
+      return true
+    }
+  }
   return (
     <div className='h-auto bg-white rounded-xl p-8 w-full max-w-md'>
     <div className='flex flex-col  items-center'>
@@ -25,17 +41,36 @@ function SigninPage() {
       </div>
       <div className='gap-6 flex  flex-col'>   
         
-        <InputBox plcaeholder=' xyz@gmail.com' label='Email'
+        <InputBox plcaeholder=' xyz@gmail.com' 
+        onchange={(e)=>{
+          setData({...data,email:e.target.value})
+        }}
+        label='Email'
          type='text' isWidthFull={true}
           iconOnstart={<Mail size={"22px"}/>}/>
        
-        <InputBox plcaeholder='••••••••' label='Password'
+        <InputBox plcaeholder='••••••••' 
+        
+        onchange={(e)=>{
+          setData({...data,password:e.target.value})
+        }}
+
+        label='Password'
          type={visible?"text":"password"} isWidthFull={true}
           iconOnstart={<Lock size={"20px"}/>} 
           iconOnEnd={visible?<EyeOff size={"22px"} onClick={()=>{setVisible(!visible)}}/>:<Eye size={"22px"} onClick={()=>{setVisible(!visible)}}/>}/>
       </div>
       <div className='mt-7'>
-        <Button type='button' variant='primary' isWidthFull={true}  label='Log in'/>
+        <Button 
+        disabled={isSigninUp}
+        type='button'
+         onClick={()=>{
+          if(validate()){
+            login(data)
+          }
+         }}
+         variant='primary'
+          isWidthFull={true}  label="logIn"/>
       </div> 
       <div className='flex mt-5 items-center justify-center text-gray-400 gap-3'>
         <div className=' border-t border-t-gray-300 w-44'>
@@ -50,7 +85,11 @@ function SigninPage() {
         <span>
           new to chatify?
         </span>
-        <span className='text-orange-500 font-sans cursor-pointer font-semibold'>
+        <span
+        onClick={()=>{
+          navigate('/signup')
+        }}
+        className='text-orange-500 font-sans cursor-pointer font-semibold'>
           sign up 
         </span>
       </div>

@@ -11,10 +11,8 @@ function App() {
 
   useEffect(()=>{
     isauthUSer()
-    console.log(isAuthChecking)
-    console.log(authUser)
-  },[authUser])
-  
+  },[isauthUSer])
+
   if(isAuthChecking)
     return <div className="min-h-screen bg-[#0A0E27] flex items-center justify-center p-4 text-white">
      <PageLoader/>
@@ -24,7 +22,7 @@ function App() {
 
     <Routes>
      
-    <Route path="/signup" element={<SignupPage/>}/>
+    <Route path="/signup" element={!authUser?<SignupPage/>:<HomePage/>}/>
     <Route path="/signin" element={!authUser?<SigninPage/>:<HomePage/>}/>
     <Route path="/home" element={authUser?<HomePage/>:<Navigate to={'/signin'}/>}/>
     </Routes>

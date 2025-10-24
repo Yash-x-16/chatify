@@ -4,6 +4,8 @@ import InputBox from '../components/ui/InputBox';
 import Button from '../components/ui/Button';
 import { authStore } from '../store/authStore';
 import toast from 'react-hot-toast';
+import { Navigate, useNavigate } from 'react-router-dom';
+
 function SignupPage() {
   const [visible,setVisible] = useState(false) 
   const {isSigninUp,signup}= authStore()
@@ -12,6 +14,7 @@ function SignupPage() {
     password:"" , 
     email:""
   }) 
+  const navigate = useNavigate()
   function validate(){
     if(data.email===""|| data.username===""||data.password===""){
       console.log("value of data from inside validation is ",data)
@@ -21,6 +24,7 @@ function SignupPage() {
       return true ; 
     }
   }
+
   return (
     <div className='h-auto bg-white rounded-xl p-8 w-full max-w-md'>
     <div className='flex flex-col  items-center'>
@@ -94,7 +98,11 @@ function SignupPage() {
         <span>
           Already have an account ?    
         </span>
-        <span className='text-orange-500 font-sans cursor-pointer font-semibold'>
+        <span 
+        onClick={()=>{
+          navigate('/signin')
+        }}
+        className='text-orange-500 font-sans cursor-pointer font-semibold'>
            sign in 
         </span>
       </div>

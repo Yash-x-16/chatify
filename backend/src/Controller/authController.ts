@@ -20,7 +20,6 @@ export const Signup = async(req:Request,res:Response)=>{
     }
 
     try{
-
         const {email,username,password} = result.data ; 
         const isAlreadyExist = await client.user.findUnique({
             where:{
@@ -44,10 +43,12 @@ export const Signup = async(req:Request,res:Response)=>{
                 password:hashedPassword
             }
         })
-       
+
+       const token = jwt.sign({userId:user.userID},process.env.JWT_SECRET as string) 
         res.status(201).json({
             message:"user created" , 
-            user:{...user,password:null}
+            user:{...user,password:null} , 
+            token
         })
 
     }catch(e){
@@ -81,7 +82,8 @@ export const Signin = async(req:Request,res:Response)=>{
                 const token = jwt.sign({userId:isUserExist.userID}as JwtPayload,process.env.JWT_Secret as string,{expiresIn:"7d"})  
                 res.json({
                     message:"logged in" , 
-                    token
+                    token ,
+                    user:{...isUserExist,password:null}
                 })
             }else{
                 res.status(401).json({
