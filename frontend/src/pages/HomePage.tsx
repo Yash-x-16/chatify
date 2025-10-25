@@ -1,15 +1,26 @@
-import { authStore } from "../store/authStore"
+import ChatHeader from "../components/chatpage/ChatHeader"
+import Sidebar from "../components/chatpage/Sidebar"
+import UserCards from "../components/cards/userCards"
 function HomePage() {
-  const {isauthUSer}=authStore()
   return (
-    <div className="text-white">HomePage
-    <button onClick={async ()=>{
-      localStorage.removeItem("token") 
-      await isauthUSer()
-    }}
-    className="cursor-pointer "
-    > 
-      signout</button></div>
+    <div className="min-h-screen p-4 flex bg-[#efefed] min-w-full">
+      <div className="flex">
+        <Sidebar/>
+      </div>
+      <div className="flex flex-col">
+        <ChatHeader/>
+        <div className="flex flex-col rounded-xl  overflow-scroll shadow-md p-3 ml-2 bg-[#f6f6f7]">
+          all
+          <UserCards username="yash" profile="yas"/>
+          <UserCards username="yash" profile="yas"/>
+          <UserCards username="yash" profile="yas"/>
+          <UserCards username="yash" profile="yas"/>
+          <UserCards username="yash" profile="yas"/>
+          <UserCards username="yash" profile="yas"/>
+        </div>
+        
+      </div>
+    </div>
   )
 }
 

@@ -24,9 +24,9 @@ function InputBox(prop:input) {
           onChange={prop.onchange}
           placeholder={prop.plcaeholder}
            className={`bg-white px-6 text-slate-400
-             font-medium py-3 pl-12 pr-4  focus 
+             font-medium py-3 ${prop.iconOnstart?"pl-12":"pl-4"} pr-4  focus 
              block w-full  border border-gray-300 
-             rounded-xl focus:ring-2 
+             rounded-3xl focus:ring-2 
             focus:ring-[#FF5722] focus:border-transparent 
             transition-all outline-none`}/>
            {prop.iconOnEnd?<div className='absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 cursor-pointer '>{prop.iconOnEnd}</div>:null}

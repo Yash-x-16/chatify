@@ -4,7 +4,7 @@ import InputBox from '../components/ui/InputBox';
 import Button from '../components/ui/Button';
 import { authStore } from '../store/authStore';
 import toast from 'react-hot-toast';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function SignupPage() {
   const [visible,setVisible] = useState(false) 
@@ -26,7 +26,10 @@ function SignupPage() {
   }
 
   return (
-    <div className='h-auto bg-white rounded-xl p-8 w-full max-w-md'>
+    <div className='min-h-scree w-screen  flex justify-center items-center p-4'>
+
+    
+    <div className='h-auto bg-white rounded-xl p-8 w-full max-w-md shadow-md'>
     <div className='flex flex-col  items-center'>
       <div>
           <div className='bg-linear-to-br mt-5 from-[#FF5722] to-[#FF7043] size-16 mb-10  rounded-xl transform rotate-45 p-4 flex justify-center items-center'>
@@ -107,6 +110,7 @@ function SignupPage() {
         </span>
       </div>
     </div>
+   </div> 
   );
 }
 
