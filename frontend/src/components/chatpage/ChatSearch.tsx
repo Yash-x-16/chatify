@@ -1,7 +1,7 @@
 import { Plus, Search } from "lucide-react"
 import InputBox from "../ui/InputBox"
 
-function ChatHeader() {
+function ChatSearch() {
   return (
     <div className="bg-[#f6f6f7] mb-1 shadow-md  p-3 flex rounded-xl gap-2 items-center justify-center ml-2 ">
         <div className="text-black font-semibold font-sans text-lg">
@@ -19,4 +19,4 @@ function ChatHeader() {
   )
 }
 
-export default ChatHeader
+export default ChatSearch

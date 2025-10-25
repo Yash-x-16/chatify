@@ -3,7 +3,7 @@ import { useChatStore } from "../../store/chatStore"
 function Sidebar() {
   const {currentPage,setCurrentPage}= useChatStore()
   return (
-    <div className="bg-[#02011b] text-white  min-w-20 rounded-xl shadow-md flex flex-col justify-between">
+    <div className="bg-[#02011b] text-white max-h-screen min-w-20 rounded-xl shadow-md flex flex-col justify-between">
         <div>
            <div className="flex justify-center items-center mt-6"> 
             <Sparkle size={"35px"} className="text-orange-500"/>

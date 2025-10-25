@@ -21,13 +21,12 @@ function Button({
   onClick,
   disabled = false,
 }: ButtonProps) {
-  const baseStyles = `flex items-center justify-center gap-2 font-medium py-3 px-6 rounded-xl transition-all duration-200 
-  focus:outline-none focus:ring-2 focus:ring-offset-2`
+  const baseStyles = `flex items-center justify-center gap-2 font-medium py-3 px-6`
 
   const variantStyles =
     variant === 'primary'
-      ? `bg-[#FF5722] text-white hover:bg-[#e14d1f] hover:scale-103 active:scale-100 transition-all duration-300 cursor-pointer shadow-md shadow-amber-100 `
-      : `bg-blue-400 text-white hover:bg-blue-500 focus:ring-blue-400`
+      ? `bg-[#FF5722] text-white hover:bg-[#e14d1f] hover:scale-103 active:scale-100 transition-all rounded-xl duration-300 cursor-pointer shadow-md shadow-amber-100 `
+      : `bg-black hover:bg-green-300 shadow-md transition-all duration-300 text-white hover:bg-blue-500 cursor-pointer rounded-3xl `
 
   const widthStyle = isWidthFull ? 'w-full' : ''
 
