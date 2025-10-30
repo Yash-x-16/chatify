@@ -1,19 +1,34 @@
-import { WebSocketServer } from "ws";
-import dotenv from "dotenv";
+import { WebSocketServer, WebSocket } from "ws";
+import dotenv, { parse } from "dotenv";
 dotenv.config();
-const WS_BACKEND_URL = Number(process.env.WS_BACKEND_UR);
+let allUsers = [];
 const wss = new WebSocketServer({ port: 8080 });
 wss.on("error", (error) => {
-    console.log(error);
+    console.log("error in the ws is :", error);
 });
 wss.on("connection", (socket) => {
     console.log("controller reached here ");
     socket.on("message", (e) => {
-        if (e.toString() === "ping") {
-            socket.send("pong");
+        try {
+            const parsedData = JSON.parse(e);
+            if (parsedData.type === "join") {
+                allUsers.push({
+                    socket: socket,
+                    userId: Number(parsedData.payload.userId),
+                    roomId: parsedData.payload.roomId
+                });
+                socket.send("user pushed to the array");
+            }
+            if (parsedData.type === "chat") {
+                const user = allUsers.map((x) => {
+                    if (x.roomId === parsedData.payload.roomId) {
+                        socket.send(parsedData.payload.message);
+                    }
+                });
+            }
         }
-        else {
-            socket.send("yash from ws-backend");
+        catch (e) {
+            console.log("error in the ws", e);
         }
     });
 });
