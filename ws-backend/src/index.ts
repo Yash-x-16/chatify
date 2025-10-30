@@ -17,6 +17,7 @@ const wss = new WebSocketServer({port:8080})
 wss.on("error",(error)=>{
     console.log("error in the ws is :", error)
 })
+
 wss.on("connection",(socket)=>{ 
     socket.on("message",(e)=>{ 
 
@@ -31,10 +32,15 @@ wss.on("connection",(socket)=>{
          
         }
         if(parsedData.type==="chat"){
-            const user = allUsers.map((x)=>{
+             allUsers.map((x)=>{
                 if(x.roomId===parsedData.payload.roomId){
                     socket.send(parsedData.payload.message) ; 
                 }
+            })
+        }
+        if(parsedData.type==="leave"){
+            allUsers.filter((x)=>{
+                x.roomId != parsedData.payload.roomId ; 
             })
         }
         }catch(e){

@@ -30,9 +30,11 @@ function HomePage() {
         <div>
           <ChatProfileHeader/> 
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col overflow-y-auto no-scrollbar rounded-lg ">
           <ChatMessageComponent/>
-          <div className="flex">
+        </div> 
+        <div>
+           <div className="flex">
             <MessageInput/>
           </div>
         </div>

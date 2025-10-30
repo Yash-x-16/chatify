@@ -7,9 +7,7 @@ function UserCards(prop:userCard) {
   return (
     <div className="flex gap-2 flex-col cursor-pointer">
         <div className="flex gap-3">
-            <div className="flex  items-center p-4 rounded-full bg-orange-500">
-                {prop.profile}
-            </div>
+            <img className="flex size-12 items-center  rounded-full bg-orange-500" src={"https://res.cloudinary.com/ddmtv1dut/image/upload/v1761449270/5907_ng3njp.jpg"}/>
             <div className="font-semibold font-sans">
                 {prop.username}
             </div>

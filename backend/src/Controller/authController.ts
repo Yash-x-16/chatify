@@ -3,7 +3,8 @@ import { signinValidations,signupValidations } from "../validations/validations.
 import { client } from "../Db/db.js";
 import bcrypt from "bcrypt"
 import jwt, { type JwtPayload } from "jsonwebtoken" 
-import dotenv from "dotenv" 
+import dotenv from "dotenv"  
+import cloudinary from "../lib/cloudinary.js";
 dotenv.config()
 
 export const Signup = async(req:Request,res:Response)=>{
@@ -20,7 +21,7 @@ export const Signup = async(req:Request,res:Response)=>{
     }
 
     try{
-        const {email,username,password} = result.data ; 
+        const {email,username,password} = result.data ;  
         const isAlreadyExist = await client.user.findUnique({
             where:{
                 email
@@ -40,7 +41,8 @@ export const Signup = async(req:Request,res:Response)=>{
             data:{
                 email,
                 username , 
-                password:hashedPassword
+                password:hashedPassword , 
+                profilePicture:process.env.DEFAULT_PROFILE_PICTURE as string 
             }
         })
 
@@ -51,7 +53,8 @@ export const Signup = async(req:Request,res:Response)=>{
             token
         })
 
-    }catch(e){
+    }catch(e){  
+        console.log(e)
         res.json({
             message:"error in signup" , 
             error:e
@@ -120,6 +123,32 @@ export const getUser =  async(req:Request,res:Response)=>{
         res.status(404).json({
             message:"error in getting user" , 
             error:{e}
+        })
+    }
+} 
+
+export const updateProfile = async(req:Request,res:Response)=>{
+    try {
+        const {profilePicture} = req.body ; 
+        const uploadingImage=  await cloudinary.uploader.upload(profilePicture)
+        const profileUrl = uploadingImage.url 
+      
+        await client.user.update({
+            where:{
+                userID:Number(req.userId)
+            } , 
+            data:{
+                profilePicture:profileUrl 
+            }
+        }) 
+
+        res.json({
+            message:"profile updated " , 
+        })
+    } catch (error) {
+        res.json({
+            message:"error in updating profile" , 
+            error
         })
     }
 }
