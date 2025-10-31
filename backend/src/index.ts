@@ -7,7 +7,7 @@ import requestRoutes from './Routes/requestRoutes.js'
 import cors from "cors"
 const app = express() 
 dotenv.config()
-
+console.log("the client url is this : ",process.env.CLIENT_URL)
 app.use(cors({origin:process.env.CLIENT_URL}))
 app.use(express.json()) 
 
