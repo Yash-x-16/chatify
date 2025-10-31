@@ -18,7 +18,8 @@ wss.on("error",(error)=>{
     console.log("error in the ws is :", error)
 })
 
-wss.on("connection",(socket)=>{ 
+wss.on("connection",(socket)=>{  
+
     socket.on("message",(e)=>{ 
 
         try{
