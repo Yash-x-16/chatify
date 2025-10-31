@@ -1,4 +1,4 @@
-import {  Sparkle,Bell,MessageCircleMore,Trash, Contact,  User} from "lucide-react"
+import {  Sparkle,MessageCircleMore,Trash, Contact,  User, UserPlus} from "lucide-react"
 import { useChatStore } from "../../store/chatStore"
 function Sidebar() {
   const {currentPage,setCurrentPage}= useChatStore()
@@ -20,12 +20,12 @@ function Sidebar() {
                onClick={()=>{
               setCurrentPage("contact")
             }}
-             size={"22px"} className={`cursor-pointer hover:text-orange-400 transition-all duration-300 ${currentPage==="contact"?"text-orange-500":"text-slate-300"}`}/>
-            <Bell 
+             size={"22px"} className={`cursor-pointer hover:text-orange-400 transition-all duration-300 ${currentPage==="contacts"?"text-orange-500":"text-slate-300"}`}/>
+            <UserPlus 
               onClick={()=>{
-              setCurrentPage("notification")
+              setCurrentPage("request")
             }}
-            size={"22px"}    className={`cursor-pointer hover:text-orange-400 transition-all duration-300 ${currentPage==="notification"?"text-orange-500":"text-slate-300"}`}/>
+            size={"22px"}    className={`cursor-pointer hover:text-orange-400 transition-all duration-300 ${currentPage==="requests"?"text-orange-500":"text-slate-300"}`}/>
             <Trash 
               onClick={()=>{
               setCurrentPage("delete")

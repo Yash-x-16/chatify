@@ -7,7 +7,7 @@ interface message{
 function MessageCards(prop:message) {
   return (
     <div className={` `}>
-        <div  className={` flex ${prop.type==="sender"?"justify-end text-white":"justify-start" } `}>
+        <div  className={` flex ${prop.type==="sender"?"justify-end mt-2 text-white":"justify-start" } `}>
             {prop.type==="sender"?
                 <h1 className="bg-orange-500  p-3 rounded-md">
                     {prop.text}

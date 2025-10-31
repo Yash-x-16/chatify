@@ -3,7 +3,8 @@ import Button from "../ui/Button"
 
 function ChatProfileHeader() {
   return (
-    <div className="ml-2 p-3 mb-1 rounded-xl max-w-full shadow-md bg-[#f6f6f7]">
+    // added overflow and max height so header becomes scrollable if it grows
+    <div className="ml-2 p-3 mb-1 rounded-xl max-w-full shadow-md bg-[#f6f6f7] overflow-y-auto max-h-36">
       <div className="flex justify-around flex-1  items-center">
         <div className="flex gap-3">
           <img className="flex items-center justify-center rounded-full  size-12 " src={"https://res.cloudinary.com/ddmtv1dut/image/upload/v1761449270/5907_ng3njp.jpg"}/>
