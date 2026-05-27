@@ -10,9 +10,11 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@repo/typescript-config":"workspace:*"
+    "@repo/typescript-config": "workspace:*"
   },
   "dependencies": {
-    "typescript": "^6.0.3" 
+    "@types/mongoose": "^5.11.97",
+    "mongoose": "^9.6.2",
+    "typescript": "^6.0.3"
   }
 }
